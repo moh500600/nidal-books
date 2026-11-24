@@ -1,6 +1,8 @@
 <div align="center">
 
-# Nidal Books · نضال للكتب
+<img src="docs/icon.png" width="120" alt="CMD Book app icon (illustration)">
+
+# CMD Book
 
 **مكتبة كتب وPDF شخصية لأندرويد، بتصميم «ورق وحبر»**
 
@@ -8,13 +10,13 @@
 
 [Download / تحميل](https://github.com/moh500600/nidal-books/releases/latest) · [Features](#features--المميزات) · [Privacy](#privacy-and-ai--الخصوصية-والذكاء-الاصطناعي) · [Build](#build-from-source--البناء-من-المصدر)
 
-`v0.1.0` · first release · Android 7.0+ · MIT
+`v0.1.1` · Android 7.0+ · MIT
 
 </div>
 
-> **Status: first release (0.1.0).** It builds and passes the automated analysis and tests on GitHub, but it has not yet been tested on a physical device, and its screens have not yet been compared one by one with the approved design. Expect rough edges. Please report them in Issues.
+> **Status: version 0.1.1.** It builds and passes the automated analysis and tests on GitHub, but it has not yet been tested on a physical device, and its screens have not yet been compared one by one with the approved design. Expect rough edges. Please report them in Issues.
 >
-> **الحالة: الإصدار الأول (0.1.0).** يُبنى ويجتاز الفحص والاختبارات الآلية على GitHub، لكنه لم يُجرَّب بعد على جهاز فعلي، ولم تُقارن شاشاته بالتصميم المعتمد شاشة بشاشة. قد تظهر ملاحظات، أبلغ عنها في Issues.
+> **الحالة: الإصدار 0.1.1.** يُبنى ويجتاز الفحص والاختبارات الآلية على GitHub، لكنه لم يُجرَّب بعد على جهاز فعلي، ولم تُقارن شاشاته بالتصميم المعتمد شاشة بشاشة. قد تظهر ملاحظات، أبلغ عنها في Issues.
 
 ## Download / تحميل
 
@@ -22,12 +24,12 @@ Open the [latest release](https://github.com/moh500600/nidal-books/releases/late
 
 | File | Use it on |
 |---|---|
-| `NidalBooks-arm64-v8a.apk` | most modern phones (choose this if unsure) |
-| `NidalBooks-armeabi-v7a.apk` | older 32-bit phones |
+| `CMDBook-arm64-v8a.apk` | most modern phones (choose this if unsure) |
+| `CMDBook-armeabi-v7a.apk` | older 32-bit phones |
 
 Requires Android 7.0 or newer. Android will ask you to allow installing from unknown sources for your browser or file manager.
 
-The APKs are signed with a Nidal Books release key. Certificate SHA-256:
+The APKs are signed with a CMD Book release key. Certificate SHA-256:
 
 ```
 0d5d9310c20d63ebe9695632a1c88ddcf577b69b8f003ee6d4153140f275b497
@@ -55,7 +57,7 @@ Not included: cloud sync across devices, live sharing between users, a server ad
 - **Storage is local.** Books, notes, shelves and settings are stored on the phone (SQLite, files, app preferences). There is no account and no server of ours.
 - **The backup file does not contain your book files.** It holds the library data, shelves and notes. Keep your PDF and TXT files yourself. If they are lost, restoring a backup will not bring them back.
 - **Nidal AI is optional and needs internet.** You enter the base URL of an OpenAI-compatible provider, a model name and your own API key in Settings. When you use an AI feature, the app sends your question and text from the book (the open page and the pages around it, up to about 4 pages) directly to that provider, and the provider's own terms apply. Without a key, the AI features do not run.
-- **The API key is kept in the app's preferences on the phone, without extra encryption.** The PIN lock is an app lock, not file encryption.
+- **The API key is kept in Android's encrypted secure storage on the phone** (not in plain preferences) and is sent only to the provider you set. The PIN is stored as a salted PBKDF2 hash, never in plain text, with a delay after 5 wrong tries. The PIN lock is an app lock, not file encryption of your books. These changes are covered by unit tests in CI but not yet tested on a device. Version 0.1.0 stored both the key and the PIN as plain text; installing 0.1.1 over it moves them to the safer storage.
 - Without a key, only small on-device helpers work (an extractive summary and flashcards from your highlights). They are not a language model.
 
 ## Usage / الاستخدام
