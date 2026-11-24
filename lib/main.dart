@@ -52,7 +52,7 @@ class _ShellState extends State<Shell> {
   static const tabs = [
     (Icons.home_outlined, Icons.home, 'الرئيسية'),
     (Icons.local_library_outlined, Icons.local_library, 'مكتبتي'),
-    (Icons.auto_awesome_outlined, Icons.auto_awesome, 'Nidal AI'),
+    (Icons.auto_awesome_outlined, Icons.auto_awesome, 'CMD AI'),
     (Icons.sticky_note_2_outlined, Icons.sticky_note_2, 'ملاحظاتي'),
     (Icons.person_outline, Icons.person, 'حسابي'),
   ];

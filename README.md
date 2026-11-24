@@ -48,7 +48,7 @@ Implemented in the code; not yet verified on a device.
 - **Profile / الملف الشخصي:** reading stats, weekly goal, optional PIN lock.
 - **Backup / النسخ الاحتياطي:** backup and restore as a JSON file, share a reading list as text.
 - **Library management / إدارة المكتبة:** storage use, duplicates, missing files.
-- **Nidal AI (optional, online):** chat with a book, page summary, quiz, translation. See below.
+- **CMD AI (optional, online):** chat with a book, page summary, quiz, translation. See below.
 
 Not included: cloud sync across devices, live sharing between users, a server admin dashboard. There is no server in this project.
 
@@ -56,7 +56,7 @@ Not included: cloud sync across devices, live sharing between users, a server ad
 
 - **Storage is local.** Books, notes, shelves and settings are stored on the phone (SQLite, files, app preferences). There is no account and no server of ours.
 - **The backup file does not contain your book files.** It holds the library data, shelves and notes. Keep your PDF and TXT files yourself. If they are lost, restoring a backup will not bring them back.
-- **Nidal AI is optional and needs internet.** You enter the base URL of an OpenAI-compatible provider, a model name and your own API key in Settings. When you use an AI feature, the app sends your question and text from the book (the open page and the pages around it, up to about 4 pages) directly to that provider, and the provider's own terms apply. Without a key, the AI features do not run.
+- **CMD AI is optional and needs internet.** You enter the base URL of an OpenAI-compatible provider, a model name and your own API key in Settings. When you use an AI feature, the app sends your question and text from the book (the open page and the pages around it, up to about 4 pages) directly to that provider, and the provider's own terms apply. Without a key, the AI features do not run.
 - **The API key is kept in Android's encrypted secure storage on the phone** (not in plain preferences) and is sent only to the provider you set. The PIN is stored as a salted PBKDF2 hash, never in plain text, with a delay after 5 wrong tries. The PIN lock is an app lock, not file encryption of your books. These changes are covered by unit tests in CI but not yet tested on a device. Version 0.1.0 stored both the key and the PIN as plain text; installing 0.1.1 over it moves them to the safer storage.
 - Without a key, only small on-device helpers work (an extractive summary and flashcards from your highlights). They are not a language model.
 
@@ -65,7 +65,7 @@ Not included: cloud sync across devices, live sharing between users, a server ad
 1. Install the APK and open the app. Create a local profile (PIN is optional).
 2. Add books from the Library tab with **Import**.
 3. Open a book to read. Select text to highlight or add a note.
-4. To use Nidal AI, open its settings and enter a provider URL, model and key.
+4. To use CMD AI, open its settings and enter a provider URL, model and key.
 5. Use Profile → Backup regularly, and keep your book files.
 
 ## Build from source / البناء من المصدر

@@ -450,7 +450,7 @@ class Ai {
 
   Future<AiResult> ask(String system, String user) async {
     if (!configured) {
-      return AiResult('', error: 'لم يُضبط مزود الذكاء الاصطناعي. أضف مفتاحك من الإعدادات > Nidal AI (يحتاج إنترنت).');
+      return AiResult('', error: 'لم يُضبط مزود الذكاء الاصطناعي. أضف مفتاحك من الإعدادات > CMD AI (يحتاج إنترنت).');
     }
     final client = HttpClient()..connectionTimeout = const Duration(seconds: 20);
     try {
@@ -473,7 +473,7 @@ class Ai {
       final j = jsonDecode(body);
       return AiResult((j['choices'][0]['message']['content'] as String).trim());
     } on SocketException {
-      return AiResult('', error: 'لا يوجد اتصال بالإنترنت. Nidal AI يحتاج إنترنت؛ بقية التطبيق يعمل بدون اتصال.');
+      return AiResult('', error: 'لا يوجد اتصال بالإنترنت. CMD AI يحتاج إنترنت؛ بقية التطبيق يعمل بدون اتصال.');
     } catch (e) {
       return AiResult('', error: 'تعذر تنفيذ الطلب: $e');
     } finally {
@@ -481,7 +481,7 @@ class Ai {
     }
   }
 
-  static const sysBook = 'أنت Nidal AI، مساعد قراءة. أجب بالعربية بإيجاز، واعتمد فقط على نص الكتاب المرفق. '
+  static const sysBook = 'أنت CMD AI، مساعد قراءة. أجب بالعربية بإيجاز، واعتمد فقط على نص الكتاب المرفق. '
       'اذكر رقم الصفحة عند الاقتباس. إن لم تجد الجواب في النص فقل ذلك بصراحة.';
 
   Future<AiResult> chat(Book b, int page, String q) async {

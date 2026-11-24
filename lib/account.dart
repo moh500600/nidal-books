@@ -78,7 +78,7 @@ class _AccountTabState extends State<AccountTab> {
       _item(context, Icons.backup_outlined, 'النسخ الاحتياطي والاسترجاع', 'تصدير واستيراد ملاحظاتك وأرففك كملف', const Backup()),
       _item(context, Icons.group_outlined, 'قوائم القراءة والمشاركة', 'شارك قائمة كتب أو ملاحظات كملف أو نص', const SharedLists()),
       _item(context, Icons.dashboard_outlined, 'إدارة المكتبة', 'المساحة، التكرار، الملفات التالفة', const Manage()),
-      _item(context, Icons.settings_outlined, 'الإعدادات', 'الخط، القفل، Nidal AI', const SettingsScreen()),
+      _item(context, Icons.settings_outlined, 'الإعدادات', 'الخط، القفل، CMD AI', const SettingsScreen()),
     ]);
   }
 
@@ -214,7 +214,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             PaperCard(
               onTap: () => go(context, const AiSettings()),
-              child: Row(children: [const Icon(Icons.auto_awesome, color: kRed), const SizedBox(width: 12), Expanded(child: Text('Nidal AI (المزود والمفتاح)', style: kufi(14)))]),
+              child: Row(children: [const Icon(Icons.auto_awesome, color: kRed), const SizedBox(width: 12), Expanded(child: Text('CMD AI (المزود والمفتاح)', style: kufi(14)))]),
             ),
             PaperCard(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('حول CMD Book', style: kufi(14)),

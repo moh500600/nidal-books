@@ -109,7 +109,7 @@ class BookDetails extends StatelessWidget {
                 ),
               ]),
               const SizedBox(height: 10),
-              Btn('لخّص مع Nidal AI', outline: true, icon: Icons.auto_awesome, onTap: () => go(context, AiWork(b.id, 'summary'))),
+              Btn('لخّص مع CMD AI', outline: true, icon: Icons.auto_awesome, onTap: () => go(context, AiWork(b.id, 'summary'))),
               const SizedBox(height: 10),
               Btn('إضافة إلى رف', outline: true, icon: Icons.shelves, onTap: () => pickShelf(context, b)),
             ]),

@@ -6,7 +6,7 @@ import 'ui.dart';
 
 Ai get ai => Ai(app);
 
-/// Nidal AI tab: choose a book, then chat / summarize / quiz / translate.
+/// CMD AI tab: choose a book, then chat / summarize / quiz / translate.
 class AiTab extends StatefulWidget {
   const AiTab({super.key});
   @override
@@ -21,7 +21,7 @@ class _AiTabState extends State<AiTab> {
         builder: (context, _) {
           final b = sel != null ? app.bookById(sel!) : (app.books.isNotEmpty ? app.books.first : null);
           return ListView(padding: const EdgeInsets.fromLTRB(18, 12, 18, 24), children: [
-            Text('Nidal AI', style: kufi(24)),
+            Text('CMD AI', style: kufi(24)),
             const SizedBox(height: 4),
             Text(ai.configured ? 'متصل بمزودك: ${app.aiModel}' : 'غير مفعّل بعد: يحتاج مفتاح مزود وإنترنت', style: sans(12, c: ai.configured ? Colors.green.shade800 : kRed)),
             if (!ai.configured)
@@ -31,7 +31,7 @@ class _AiTabState extends State<AiTab> {
                 child: Row(children: [
                   const Icon(Icons.key, color: kRed),
                   const SizedBox(width: 10),
-                  Expanded(child: Text('لتفعيل الأسئلة والترجمة والاختبارات أضف مفتاح مزود الذكاء الاصطناعي. التطبيق نفسه يعمل بدون إنترنت، لكن Nidal AI يحتاج اتصالًا.', style: sans(12.5))),
+                  Expanded(child: Text('لتفعيل الأسئلة والترجمة والاختبارات أضف مفتاح مزود الذكاء الاصطناعي. التطبيق نفسه يعمل بدون إنترنت، لكن CMD AI يحتاج اتصالًا.', style: sans(12.5))),
                 ]),
               ),
             Head('اختر كتابًا'),
@@ -59,7 +59,7 @@ class _AiTabState extends State<AiTab> {
               _tile(context, Icons.translate, 'ترجمة وقراءة صوتية', 'ترجمة الصفحة (AI) وقراءتها بصوت الجهاز', () => go(context, AiWork(b.id, 'translate'))),
             ],
             const SizedBox(height: 8),
-            Btn('إعدادات Nidal AI', outline: true, icon: Icons.settings_outlined, onTap: () => go(context, const AiSettings())),
+            Btn('إعدادات CMD AI', outline: true, icon: Icons.settings_outlined, onTap: () => go(context, const AiSettings())),
           ]);
         },
       );
@@ -87,9 +87,9 @@ class _AiSettingsState extends State<AiSettings> {
   final key = TextEditingController(text: app.aiKey);
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('إعدادات Nidal AI')),
+        appBar: AppBar(title: const Text('إعدادات CMD AI')),
         body: ListView(padding: const EdgeInsets.all(18), children: [
-          Text('Nidal AI يرسل نص الصفحات التي تسأل عنها مباشرة من هاتفك إلى المزود الذي تختاره (متوافق مع واجهة OpenAI). لا يوجد خادم وسيط من طرفنا، والمفتاح يُحفظ على هذا الهاتف فقط. بدون مفتاح أو إنترنت تبقى القراءة والبحث والملاحظات تعمل.', style: sans(12.5, c: kInk2)),
+          Text('CMD AI يرسل نص الصفحات التي تسأل عنها مباشرة من هاتفك إلى المزود الذي تختاره (متوافق مع واجهة OpenAI). لا يوجد خادم وسيط من طرفنا، والمفتاح يُحفظ على هذا الهاتف فقط. بدون مفتاح أو إنترنت تبقى القراءة والبحث والملاحظات تعمل.', style: sans(12.5, c: kInk2)),
           const SizedBox(height: 14),
           Field(base, 'عنوان الواجهة (Base URL)', icon: Icons.link),
           const SizedBox(height: 10),
@@ -149,7 +149,7 @@ class _AiChatState extends State<AiChat> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text('Nidal AI · ${b.title}', style: kufi(14), maxLines: 1)),
+        appBar: AppBar(title: Text('CMD AI · ${b.title}', style: kufi(14), maxLines: 1)),
         body: Column(children: [
           Expanded(
             child: ListView(padding: const EdgeInsets.all(16), children: [
