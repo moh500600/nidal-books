@@ -62,7 +62,7 @@ class _CreateProfileState extends State<CreateProfile> {
             if (name.text.trim().isEmpty) return snack(context, 'اكتب اسمك');
             if (pin.text.isNotEmpty && pin.text.length != 4) return snack(context, 'الرمز 4 أرقام');
             await app.setPref('name', name.text.trim());
-            if (pin.text.isNotEmpty) await app.setPref('pin', pin.text);
+            if (pin.text.isNotEmpty) await app.setPin(pin.text);
             if (context.mounted) go(context, const Interests());
           }),
         ]),
@@ -114,13 +114,34 @@ class _UnlockState extends State<Unlock> {
   void tap(String d) {
     if (v.length >= 4) return;
     setState(() => v += d);
-    if (v.length == 4) {
-      if (v == app.pin) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const Shell()));
-      } else {
-        Future.delayed(const Duration(milliseconds: 250), () => setState(() => v = ''));
-        snack(context, 'الرمز غير صحيح');
+    if (v.length == 4) _verify();
+  }
+
+  int fails = 0;
+  DateTime? lockedUntil;
+  bool busy = false;
+
+  Future<void> _verify() async {
+    if (busy) return;
+    final until = lockedUntil;
+    if (until != null && DateTime.now().isBefore(until)) {
+      setState(() => v = '');
+      snack(context, 'حاول بعد ${until.difference(DateTime.now()).inSeconds + 1} ثانية');
+      return;
+    }
+    busy = true;
+    final ok = await app.checkPin(v);
+    busy = false;
+    if (!mounted) return;
+    if (ok) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const Shell()));
+    } else {
+      fails++;
+      if (fails >= 5) {
+        lockedUntil = DateTime.now().add(Duration(seconds: 30 * (fails - 4)));
       }
+      setState(() => v = '');
+      snack(context, 'الرمز غير صحيح');
     }
   }
 

@@ -100,12 +100,12 @@ class _AiSettingsState extends State<AiSettings> {
           Btn('حفظ', onTap: () async {
             await app.setPref('ai_base', base.text.trim());
             await app.setPref('ai_model', model.text.trim());
-            await app.setPref('ai_key', key.text.trim());
+            await app.setAiKey(key.text.trim());
             if (context.mounted) { snack(context, 'تم الحفظ'); Navigator.pop(context); }
           }),
           const SizedBox(height: 10),
           if (app.aiKey.isNotEmpty)
-            Btn('حذف المفتاح', outline: true, onTap: () async { await app.setPref('ai_key', ''); key.clear(); setState(() {}); }),
+            Btn('حذف المفتاح', outline: true, onTap: () async { await app.setAiKey(''); key.clear(); setState(() {}); }),
         ]),
       );
 }

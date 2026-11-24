@@ -2,13 +2,17 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart' show compute;
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:pdfrx/pdfrx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'security.dart';
 
 // ---------- palette ("ورق وحبر") ----------
 const kPaper = Color(0xFFF6F1E7);
@@ -84,6 +88,7 @@ class Shelf {
 class AppState extends ChangeNotifier {
   late Database db;
   late SharedPreferences prefs;
+  final FlutterSecureStorage secure = const FlutterSecureStorage();
   late Directory dir;
   List<Book> books = [];
   List<Note> notes = [];
@@ -93,6 +98,7 @@ class AppState extends ChangeNotifier {
 
   Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
+    await _migrateSecrets();
     dir = await getApplicationDocumentsDirectory();
     await Directory(p.join(dir.path, 'books')).create(recursive: true);
     db = await openDatabase(p.join(dir.path, 'nidal_books.db'), version: 1,
@@ -134,14 +140,56 @@ class AppState extends ChangeNotifier {
   // ---- prefs ----
   String get userName => prefs.getString('name') ?? '';
   bool get onboarded => prefs.getBool('onboarded') ?? false;
+  /// Stored PIN record (salted PBKDF2 hash). Empty means no lock.
   String get pin => prefs.getString('pin') ?? '';
+  Future<void> setPin(String v) async {
+    if (v.isEmpty) {
+      await prefs.remove('pin');
+    } else {
+      await prefs.setString('pin', await compute(hashPinTask, v));
+    }
+    notifyListeners();
+  }
+
+  Future<bool> checkPin(String v) => compute(verifyPinTask, (v, pin));
   bool get darkReader => prefs.getBool('dark') ?? false;
   double get fontSize => prefs.getDouble('font') ?? 19;
   int get weeklyGoalHours => prefs.getInt('goal') ?? 5;
   List<String> get interests => prefs.getStringList('interests') ?? [];
   String get aiBase => prefs.getString('ai_base') ?? 'https://api.openai.com/v1';
   String get aiModel => prefs.getString('ai_model') ?? 'gpt-4o-mini';
-  String get aiKey => prefs.getString('ai_key') ?? '';
+  String _aiKey = '';
+  String get aiKey => _aiKey;
+  Future<void> setAiKey(String v) async {
+    _aiKey = v;
+    if (v.isEmpty) {
+      await secure.delete(key: 'ai_key');
+    } else {
+      await secure.write(key: 'ai_key', value: v);
+    }
+    notifyListeners();
+  }
+
+  /// Moves values saved by 0.1.0 (plain text in app preferences) to safe storage.
+  Future<void> _migrateSecrets() async {
+    try {
+      _aiKey = await secure.read(key: 'ai_key') ?? '';
+      final old = prefs.getString('ai_key') ?? '';
+      if (old.isNotEmpty) {
+        if (_aiKey.isEmpty) {
+          await secure.write(key: 'ai_key', value: old);
+          _aiKey = old;
+        }
+        await prefs.remove('ai_key');
+      }
+    } catch (_) {
+      // Secure storage unavailable: keep the key in memory only, never write plain text.
+    }
+    final p0 = prefs.getString('pin') ?? '';
+    if (p0.isNotEmpty && !isPinRecord(p0)) {
+      await prefs.setString('pin', await compute(hashPinTask, p0));
+    }
+  }
   Future<void> setPref(String k, Object v) async {
     if (v is String) await prefs.setString(k, v);
     if (v is bool) await prefs.setBool(k, v);

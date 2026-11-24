@@ -236,7 +236,7 @@ class SettingsScreen extends StatelessWidget {
           TextButton(
             onPressed: () async {
               if (c.text.isNotEmpty && c.text.length != 4) return;
-              await app.setPref('pin', c.text);
+              await app.setPin(c.text);
               if (ctx.mounted) Navigator.pop(ctx);
             },
             child: const Text('حفظ'),
