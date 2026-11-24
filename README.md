@@ -17,7 +17,17 @@ Personal book and PDF library for Android (Flutter, Arabic RTL). All data stays 
 ## Not included (needs a server)
 Cloud sync across devices and live sharing between users. Backup files and shared lists replace them.
 
+## Download / تحميل
+APK files are on the Releases page: https://github.com/moh500600/nidal-books/releases/latest
+- `NidalBooks-arm64-v8a.apk`: most modern phones (choose this one if unsure)
+- `NidalBooks-armeabi-v7a.apk`: older 32-bit phones
+- Requires Android 7.0+. Allow installing from unknown sources to install. Signing certificate SHA-256: `0d5d9310c20d63ebe9695632a1c88ddcf577b69b8f003ee6d4153140f275b497`
+
 ## Build
 `flutter pub get && flutter build apk --release`. The GitHub Actions workflow `Build APK` builds split-per-ABI APKs.
 
 Design preview: "Nidal Books - ورق وحبر". Sample text is a short public-domain excerpt of Ibn Khaldun's Muqaddima.
+
+
+## License
+MIT. Use, copy and modify freely. See LICENSE.
