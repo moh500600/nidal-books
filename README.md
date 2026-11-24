@@ -3,6 +3,7 @@
 # Nidal Books · نضال للكتب
 
 **مكتبة كتب وPDF شخصية لأندرويد، بتصميم «ورق وحبر»**
+
 **A personal book and PDF library for Android, in the "Paper & Ink" design (Arabic, RTL)**
 
 [Download / تحميل](https://github.com/moh500600/nidal-books/releases/latest) · [Features](#features--المميزات) · [Privacy](#privacy-and-ai--الخصوصية-والذكاء-الاصطناعي) · [Build](#build-from-source--البناء-من-المصدر)
