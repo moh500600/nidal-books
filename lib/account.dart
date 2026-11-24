@@ -102,7 +102,7 @@ class Backup extends StatelessWidget {
           const SizedBox(height: 8),
           Btn('تصدير نسخة احتياطية', icon: Icons.upload, onTap: () async {
             final f = await app.exportBackup();
-            await SharePlus.instance.share(ShareParams(files: [XFile(f.path)], text: 'نسخة Nidal Books الاحتياطية'));
+            await SharePlus.instance.share(ShareParams(files: [XFile(f.path)], text: 'نسخة CMD Book الاحتياطية'));
           }),
           const SizedBox(height: 10),
           Btn('استرجاع من ملف', outline: true, icon: Icons.download, onTap: () async {
@@ -217,7 +217,7 @@ class SettingsScreen extends StatelessWidget {
               child: Row(children: [const Icon(Icons.auto_awesome, color: kRed), const SizedBox(width: 12), Expanded(child: Text('Nidal AI (المزود والمفتاح)', style: kufi(14)))]),
             ),
             PaperCard(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('حول Nidal Books', style: kufi(14)),
+              Text('حول CMD Book', style: kufi(14)),
               Text('الإصدار 1.0 · كل بياناتك على هذا الجهاز · لا حساب ولا خادم.', style: sans(12, c: kInk2)),
             ])),
           ]),

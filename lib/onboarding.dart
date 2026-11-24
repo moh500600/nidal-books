@@ -23,7 +23,7 @@ class Welcome extends StatelessWidget {
                 ]),
               ),
               const SizedBox(height: 30),
-              Text('Nidal Books', textAlign: TextAlign.center, style: kufi(32)),
+              Text('CMD Book', textAlign: TextAlign.center, style: kufi(32)),
               const SizedBox(height: 8),
               Text('مكتبتك الشخصية للكتب والـPDF، على جهازك أنت.', textAlign: TextAlign.center, style: naskh(17, c: kInk2)),
               const Spacer(),

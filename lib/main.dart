@@ -17,16 +17,16 @@ Future<void> main() async {
   pdfrxFlutterInitialize();
   app = AppState();
   await app.init();
-  runApp(const NidalApp());
+  runApp(const CmdApp());
 }
 
-class NidalApp extends StatelessWidget {
-  const NidalApp({super.key});
+class CmdApp extends StatelessWidget {
+  const CmdApp({super.key});
   @override
   Widget build(BuildContext context) => ListenableBuilder(
         listenable: app,
         builder: (_, __) => MaterialApp(
-          title: 'Nidal Books',
+          title: 'CMD Book',
           debugShowCheckedModeBanner: false,
           theme: buildTheme(),
           locale: const Locale('ar'),

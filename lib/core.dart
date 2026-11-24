@@ -369,7 +369,7 @@ class AppState extends ChangeNotifier {
   // ---- backup / restore (metadata + notes, JSON; book files are not included) ----
   Future<File> exportBackup() async {
     final data = {
-      'app': 'Nidal Books', 'version': 1,
+      'app': 'CMD Book', 'version': 1,
       'books': (await db.query('books')),
       'notes': (await db.query('notes')),
       'shelves': (await db.query('shelves')),
@@ -377,7 +377,7 @@ class AppState extends ChangeNotifier {
       'reading': (await db.query('reading')),
       'prefs': {'name': userName, 'goal': weeklyGoalHours, 'interests': interests},
     };
-    final f = File(p.join((await getTemporaryDirectory()).path, 'nidal-books-backup.json'));
+    final f = File(p.join((await getTemporaryDirectory()).path, 'cmd-book-backup.json'));
     await f.writeAsString(const JsonEncoder.withIndent(' ').convert(data));
     return f;
   }
@@ -385,7 +385,7 @@ class AppState extends ChangeNotifier {
   /// Returns number of notes restored. Notes are matched to books by title.
   Future<int> restoreBackup(String path) async {
     final data = jsonDecode(await File(path).readAsString()) as Map<String, dynamic>;
-    if (data['app'] != 'Nidal Books') throw 'ملف نسخة احتياطية غير صالح';
+    if (data['app'] != 'CMD Book' && data['app'] != 'Nidal Books') throw 'ملف نسخة احتياطية غير صالح';
     final oldBooks = {for (final b in (data['books'] as List)) b['id'] as int: b as Map<String, dynamic>};
     var count = 0;
     for (final n in (data['notes'] as List)) {

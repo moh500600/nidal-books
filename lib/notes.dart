@@ -118,7 +118,7 @@ class ExportNotes extends StatefulWidget {
 class _ExportNotesState extends State<ExportNotes> {
   int? bookId;
   String makeText() {
-    final sb = StringBuffer('# ملاحظات Nidal Books\n\n');
+    final sb = StringBuffer('# ملاحظات CMD Book\n\n');
     final byBook = <int, List<Note>>{};
     for (final n in app.notes.where((n) => n.kind != 'bookmark' && (bookId == null || n.bookId == bookId))) {
       (byBook[n.bookId] ??= []).add(n);
@@ -151,9 +151,9 @@ class _ExportNotesState extends State<ExportNotes> {
         const SizedBox(height: 12),
         PaperCard(child: SelectableText(text, style: sans(12.5))),
         Btn('مشاركة كملف Markdown', icon: Icons.ios_share, onTap: () async {
-          final f = File(p.join((await getTemporaryDirectory()).path, 'nidal-books-notes.md'));
+          final f = File(p.join((await getTemporaryDirectory()).path, 'cmd-book-notes.md'));
           await f.writeAsString(text);
-          await SharePlus.instance.share(ShareParams(files: [XFile(f.path)], text: 'ملاحظاتي من Nidal Books'));
+          await SharePlus.instance.share(ShareParams(files: [XFile(f.path)], text: 'ملاحظاتي من CMD Book'));
         }),
         const SizedBox(height: 10),
         Btn('مشاركة كنص', outline: true, icon: Icons.text_snippet_outlined, onTap: () => SharePlus.instance.share(ShareParams(text: text))),
